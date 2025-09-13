@@ -3,9 +3,10 @@ import { NextAuthOptions } from 'next-auth';
 import EmailProvider from 'next-auth/providers/email';
 import { PrismaAdapter } from '@auth/prisma-adapter';
 import { prisma } from './prisma';
+import { Adapter } from 'next-auth/adapters';
 
 export const authOptions: NextAuthOptions = {
-  adapter: PrismaAdapter(prisma),
+  adapter: PrismaAdapter(prisma) as Adapter,
   providers: [
     EmailProvider({
       server: {
@@ -21,9 +22,15 @@ export const authOptions: NextAuthOptions = {
   ],
   callbacks: {
     session: async ({ session, user }) => {
-      if (session?.user) {
-        session.user.id = user.id;
-        session.user.role = user.role || 'user';
+      // Fetch the complete user with role from database
+      const dbUser = await prisma.user.findUnique({
+        where: { id: user.id },
+        select: { id: true, role: true }
+      });
+      
+      if (session?.user && dbUser) {
+        session.user.id = dbUser.id;
+        session.user.role = dbUser.role || 'user';
       }
       return session;
     },
