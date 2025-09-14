@@ -1,4 +1,4 @@
-# Buyer Lead Intake — Mini App
+# Buyer Lead — Mini App
 
 A small Next.js + TypeScript app to **capture, list, and manage buyer leads** with server-side pagination, CSV import/export, Zod validation, and ownership-based permissions.
 
