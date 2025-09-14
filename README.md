@@ -13,6 +13,13 @@ A small Next.js + TypeScript app to **capture, list, and manage buyer leads** wi
 
 ---
 
+## 📸 Screenshot
+
+Here’s how the dashboard looks:
+
+![Dashboard Screenshot](https://github.com/mrGupta04/certificate/blob/main/10.png?raw=true)
+
+
 ## 🚀 Features
 
 - **Authentication & Demo Login**
